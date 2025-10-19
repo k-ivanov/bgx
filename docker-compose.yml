@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  bgx-db:
+    image: postgres:15-alpine
+    container_name: bgx-db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB:-bgx_db}
+      - POSTGRES_USER=${POSTGRES_USER:-bgx_user}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-bgx_password}
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-bgx_user}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - bgx-network
+
+  bgx-api:
+    build: ./bgx-api
+    container_name: bgx-api
+    command: /app/entrypoint.sh
+    volumes:
+      - ./bgx-api:/app
+      - static_volume:/app/staticfiles
+      - media_volume:/app/media
+    ports:
+      - "8000:8000"
+    environment:
+      - SECRET_KEY=${SECRET_KEY:-django-insecure-dev-key-change-in-production}
+      - DEBUG=${DEBUG:-True}
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS:-localhost,127.0.0.1,bgx-api}
+      - POSTGRES_DB=${POSTGRES_DB:-bgx_db}
+      - POSTGRES_USER=${POSTGRES_USER:-bgx_user}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-bgx_password}
+      - POSTGRES_HOST=bgx-db
+      - POSTGRES_PORT=5432
+      - CORS_ALLOWED_ORIGINS=${CORS_ALLOWED_ORIGINS:-http://localhost:3000,http://localhost:8000}
+    depends_on:
+      bgx-db:
+        condition: service_healthy
+    networks:
+      - bgx-network
+
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:
+
+networks:
+  bgx-network:
+    driver: bridge
+
