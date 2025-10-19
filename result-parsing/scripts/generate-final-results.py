@@ -37,7 +37,7 @@ def parse_csv_file(file_path: Path) -> List[Dict]:
     return riders
 
 
-def aggregate_results(final_results_dir: Path, skip_worst: bool = False) -> Dict[str, Dict[Tuple, Dict]]:
+def aggregate_results(final_results_dir: Path, skip_worst: bool = False) -> Tuple[Dict[str, Dict[Tuple, Dict]], Dict[str, List[str]]]:
     """
     Walk through all CSVs in final_results directory and aggregate by category.
     
@@ -46,8 +46,9 @@ def aggregate_results(final_results_dir: Path, skip_worst: bool = False) -> Dict
         skip_worst: If True, remove worst result for riders with 7+ races
     
     Returns:
-        Dict with category name as key, and dict of riders as value
-        Rider key is (RaceNumber, FirstName, LastName)
+        Tuple of:
+        - Dict with category name as key, and dict of riders as value
+        - Dict with category name as key, and list of race names as value
     """
     # Dictionary: category_name -> {(race_num, first, last): {data}}
     category_results = defaultdict(lambda: defaultdict(lambda: {
@@ -57,8 +58,12 @@ def aggregate_results(final_results_dir: Path, skip_worst: bool = False) -> Dict
         'TotalPoints': 0.0,
         'RacesParticipated': 0,
         'BestPosition': float('inf'),
-        'RaceResults': []  # Track individual race results
+        'RaceResults': [],  # Track individual race results
+        'RacePointsMap': {}  # Map: race_name -> points
     }))
+    
+    # Track all race names per category
+    category_races = defaultdict(set)
     
     # Walk through all subdirectories
     for race_dir in final_results_dir.iterdir():
@@ -74,6 +79,9 @@ def aggregate_results(final_results_dir: Path, skip_worst: bool = False) -> Dict
             print(f"  - Category: {category}")
             
             riders = parse_csv_file(csv_file)
+            
+            # Track this race for this category
+            category_races[category].add(race_name)
             
             for rider in riders:
                 # Create unique key for rider
@@ -96,6 +104,8 @@ def aggregate_results(final_results_dir: Path, skip_worst: bool = False) -> Dict
                     'points': rider['Points'],
                     'position': rider['Position']
                 })
+                # Track points for this specific race
+                agg['RacePointsMap'][race_name] = rider['Points']
     
     # Apply skip-worst-result logic if enabled
     if skip_worst:
@@ -121,10 +131,15 @@ def aggregate_results(final_results_dir: Path, skip_worst: bool = False) -> Dict
                     rider_data['WorstResultDropped'] = None
                     rider_data['WorstRace'] = None
     
-    return category_results
+    # Convert race sets to sorted lists
+    category_races_list = {cat: sorted(races) for cat, races in category_races.items()}
+    
+    return category_results, category_races_list
 
 
-def write_category_results(output_dir: Path, category: str, riders_dict: Dict, skip_worst: bool = False):
+def write_category_results(output_dir: Path, category: str, riders_dict: Dict, 
+                          race_names: List[str] = None, skip_worst: bool = False, 
+                          full_report: bool = False):
     """Write aggregated results for a category to CSV."""
     output_file = output_dir / f"{category}.csv"
     
@@ -152,6 +167,12 @@ def write_category_results(output_dir: Path, category: str, riders_dict: Dict, s
         if skip_worst:
             fieldnames.extend(['WorstResultDropped', 'WorstRace'])
         
+        # Add individual race columns if full report is enabled
+        if full_report and race_names:
+            # Add columns for each race
+            for race_name in race_names:
+                fieldnames.append(f'Race_{race_name}')
+        
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
         
@@ -169,6 +190,13 @@ def write_category_results(output_dir: Path, category: str, riders_dict: Dict, s
             if skip_worst:
                 row_data['WorstResultDropped'] = rider.get('WorstResultDropped', '') or ''
                 row_data['WorstRace'] = rider.get('WorstRace', '') or ''
+            
+            # Add individual race points if full report
+            if full_report and race_names:
+                race_points_map = rider.get('RacePointsMap', {})
+                for race_name in race_names:
+                    # Get points for this race, or 0 if rider didn't participate
+                    row_data[f'Race_{race_name}'] = race_points_map.get(race_name, 0)
             
             writer.writerow(row_data)
     
@@ -192,6 +220,11 @@ def main():
         default='bgx-result-2025',
         help='Output directory name (default: bgx-result-2025)'
     )
+    parser.add_argument(
+        '--full',
+        action='store_true',
+        help='Generate full report with individual race points columns'
+    )
     
     args = parser.parse_args()
     
@@ -212,6 +245,7 @@ def main():
     print(f"Input directory: {final_results_dir}")
     print(f"Output directory: {output_dir}")
     print(f"Skip worst result: {'YES' if args.skip_worst_result else 'NO'}")
+    print(f"Full report: {'YES' if args.full else 'NO'}")
     
     if not final_results_dir.exists():
         print(f"\nError: Directory not found: {final_results_dir}")
@@ -222,7 +256,7 @@ def main():
     print("Aggregating results from all races...")
     print("="*60)
     
-    category_results = aggregate_results(final_results_dir, skip_worst=args.skip_worst_result)
+    category_results, category_races = aggregate_results(final_results_dir, skip_worst=args.skip_worst_result)
     
     # Write results for each category
     print("\n" + "="*60)
@@ -235,7 +269,15 @@ def main():
     
     for category, riders_dict in sorted(category_results.items()):
         print(f"\nCategory: {category.upper()}")
-        write_category_results(output_dir, category, riders_dict, skip_worst=args.skip_worst_result)
+        race_names = category_races.get(category, [])
+        if args.full:
+            print(f"  Races included: {', '.join(race_names)}")
+        write_category_results(
+            output_dir, category, riders_dict, 
+            race_names=race_names,
+            skip_worst=args.skip_worst_result,
+            full_report=args.full
+        )
     
     print("\n" + "="*60)
     print("✓ Aggregation complete!")
