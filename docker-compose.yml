@@ -26,6 +26,7 @@ services:
     command: /app/entrypoint.sh
     volumes:
       - ./bgx-api:/app
+      - ./input_data:/app/input_data
       - static_volume:/app/staticfiles
       - media_volume:/app/media
     ports:

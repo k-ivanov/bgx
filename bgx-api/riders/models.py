@@ -20,9 +20,9 @@ class Rider(models.Model):
     # Personal information
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
-    date_of_birth = models.DateField()
+    date_of_birth = models.DateField(null=True, blank=True)
     photo = models.ImageField(upload_to='riders/photos/', blank=True, null=True)
-    email = models.EmailField()
+    email = models.EmailField(blank=True)
     phone = models.CharField(max_length=20, blank=True)
     
     # License information

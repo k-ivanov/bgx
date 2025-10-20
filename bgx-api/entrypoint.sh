@@ -33,5 +33,13 @@ EOF
 
 # Start server
 echo "Starting server..."
-exec gunicorn bgx_api.wsgi:application --bind 0.0.0.0:8000 --workers 4 --timeout 120
+
+# Use Django development server if DEBUG=True, otherwise use Gunicorn
+if [ "$DEBUG" = "True" ] || [ "$DEBUG" = "true" ]; then
+    echo "DEBUG mode enabled - Using Django development server with auto-reload"
+    exec python manage.py runserver 0.0.0.0:8000
+else
+    echo "Production mode - Using Gunicorn"
+    exec gunicorn bgx_api.wsgi:application --bind 0.0.0.0:8000 --workers 4 --timeout 120
+fi
 

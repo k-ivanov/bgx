@@ -89,3 +89,18 @@ logs/
 # Node modules (if frontend is added later)
 node_modules/
 
+# BGX Project Specific
+# Rider credentials (contains passwords)
+rider_credentials.txt
+*_credentials.txt
+
+
+# Docker volumes
+bgx-db/
+
+# Migration backup files
+**/migrations/*.pyc
+
+# Local development files
+process_csv.py
+
