@@ -21,7 +21,8 @@ function RaceList({ championshipId }) {
     try {
       setLoading(true)
       setError(null)
-      const data = await getRaces({ championships__id: championshipId })
+      // Filter races by championship ID
+      const data = await getRaces({ championships: championshipId })
       // Sort by start date
       const sortedRaces = data.sort((a, b) => 
         new Date(a.start_date) - new Date(b.start_date)

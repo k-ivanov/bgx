@@ -18,6 +18,7 @@ class RaceViewSet(viewsets.ModelViewSet):
     Create/Update/Delete: system admins or club admins
     """
     queryset = Race.objects.prefetch_related('organizers', 'championships', 'race_days').all()
+    filterset_fields = ['championships', 'status', 'location']
     
     def get_serializer_class(self):
         if self.action == 'list':
