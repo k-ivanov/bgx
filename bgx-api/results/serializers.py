@@ -49,13 +49,14 @@ class ChampionshipResultSerializer(serializers.ModelSerializer):
     rider_name = serializers.CharField(source='rider.full_name', read_only=True)
     rider_club = serializers.CharField(source='rider.club.name', read_only=True, allow_null=True)
     championship_name = serializers.CharField(source='championship.name', read_only=True)
+    championship_status = serializers.CharField(source='championship.status', read_only=True)
     
     class Meta:
         model = ChampionshipResult
-        fields = ['id', 'championship', 'championship_name', 'rider', 'rider_name',
-                  'rider_club', 'category', 'total_points', 'races_participated',
-                  'created_at', 'updated_at']
-        read_only_fields = ['id', 'total_points', 'races_participated',
+        fields = ['id', 'championship', 'championship_name', 'championship_status',
+                  'rider', 'rider_name', 'rider_club', 'category', 'total_points',
+                  'races_participated', 'lowest_score_dropped', 'created_at', 'updated_at']
+        read_only_fields = ['id', 'total_points', 'races_participated', 'lowest_score_dropped',
                             'created_at', 'updated_at']
 
 

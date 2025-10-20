@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import ChampionshipSelector from './components/ChampionshipSelector'
 import RaceList from './components/RaceList'
 import RaceDetail from './components/RaceDetail'
+import ChampionshipResults from './components/ChampionshipResults'
 import Register from './components/Register'
 import Activate from './components/Activate'
 import LanguageSwitcher from './components/LanguageSwitcher'
@@ -120,6 +121,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/race/:raceId" element={<RaceDetail />} />
+        <Route path="/championship/:championshipId/results" element={<ChampionshipResults />} />
         <Route path="/register" element={<Register />} />
         <Route path="/activate" element={<Activate />} />
         <Route path="*" element={<Navigate to="/" replace />} />

@@ -105,6 +105,9 @@ def calculate_race_results(race):
 def calculate_championship_results(championship):
     """
     Calculate championship standings from race results
+    
+    Special rule: If championship is completed and rider participated in ALL races,
+    drop their lowest race score from the total.
     """
     from riders.models import Rider
     
@@ -113,6 +116,9 @@ def calculate_championship_results(championship):
     
     if not races.exists():
         return ChampionshipResult.objects.none()
+    
+    total_races_in_championship = races.count()
+    is_championship_completed = championship.status == 'completed'
     
     # Get all riders who participated in any race
     rider_ids = set()
@@ -139,9 +145,20 @@ def calculate_championship_results(championship):
         
         for category in categories:
             category_results = race_results.filter(category=category)
-            
-            total_points = sum(result.total_points for result in category_results)
             races_participated = category_results.count()
+            
+            # Calculate total points
+            total_points = sum(result.total_points for result in category_results)
+            
+            # Apply drop-lowest-score rule
+            dropped_points = Decimal(0)
+            if is_championship_completed and races_participated == total_races_in_championship:
+                # Rider participated in all races, drop lowest score
+                if races_participated > 1:  # Only drop if more than 1 race
+                    points_list = [result.total_points for result in category_results]
+                    lowest_score = min(points_list)
+                    total_points -= lowest_score
+                    dropped_points = lowest_score
             
             ChampionshipResult.objects.update_or_create(
                 championship=championship,
@@ -149,7 +166,8 @@ def calculate_championship_results(championship):
                 category=category,
                 defaults={
                     'total_points': total_points,
-                    'races_participated': races_participated
+                    'races_participated': races_participated,
+                    'lowest_score_dropped': dropped_points,
                 }
             )
     

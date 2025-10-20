@@ -100,6 +100,32 @@ makemigrations:
 createsuperuser:
 	docker compose exec bgx-api python manage.py createsuperuser
 
+# Results calculation commands
+recalculate-results:
+	docker compose exec bgx-api python manage.py recalculate_results
+
+recalculate-results-dry:
+	docker compose exec bgx-api python manage.py recalculate_results --dry-run --verbose
+
+recalculate-championship:
+	@if [ -z "$(ID)" ]; then \
+		echo "Error: Please specify championship ID with ID=<id>"; \
+		echo "Example: make recalculate-championship ID=1"; \
+		exit 1; \
+	fi
+	docker compose exec bgx-api python manage.py recalculate_results --championship $(ID) --verbose
+
+recalculate-race:
+	@if [ -z "$(ID)" ]; then \
+		echo "Error: Please specify race ID with ID=<id>"; \
+		echo "Example: make recalculate-race ID=5"; \
+		exit 1; \
+	fi
+	docker compose exec bgx-api python manage.py recalculate_results --race $(ID) --verbose
+
+recalculate-completed:
+	docker compose exec bgx-api python manage.py recalculate_results --completed-only --verbose
+
 # Import clubs from CSV
 import-clubs:
 	@echo "Importing clubs from input_data/teams.csv..."

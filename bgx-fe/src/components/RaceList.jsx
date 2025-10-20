@@ -98,8 +98,16 @@ function RaceList({ championshipId }) {
   return (
     <div className="race-list">
       <div className="race-list-header">
-        <h2>🏁 {t('race.title')}</h2>
-        <span className="race-count">{t('race.count', { count: races.length })}</span>
+        <div className="flex items-center gap-3">
+          <h2>🏁 {t('race.title')}</h2>
+          <span className="race-count">{t('race.count', { count: races.length })}</span>
+        </div>
+        <button
+          onClick={() => navigate(`/championship/${championshipId}/results`)}
+          className="px-4 py-2 bg-accent text-white rounded-lg font-semibold hover:bg-accent-dark transition shadow-sm flex items-center gap-2"
+        >
+          🏆 {t('championship.viewOverallResults')}
+        </button>
       </div>
 
       {races.length === 0 ? (

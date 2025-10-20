@@ -90,6 +90,12 @@ class ChampionshipResult(models.Model):
     
     total_points = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     races_participated = models.IntegerField(default=0)
+    lowest_score_dropped = models.DecimalField(
+        max_digits=10, 
+        decimal_places=2, 
+        default=0,
+        help_text="Lowest race score dropped (if rider participated in all races of completed championship)"
+    )
     
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
