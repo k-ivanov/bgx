@@ -13,7 +13,7 @@ from .calculations import recalculate_all
 class RaceDayResultViewSet(viewsets.ModelViewSet):
     """
     ViewSet for race day results
-    Read: all authenticated users
+    Read: all users (including anonymous)
     Create/Update/Delete: system admins or race organizers
     """
     queryset = RaceDayResult.objects.select_related('race_day__race', 'rider').all()
@@ -21,7 +21,7 @@ class RaceDayResultViewSet(viewsets.ModelViewSet):
     
     def get_permissions(self):
         if self.action in ['list', 'retrieve']:
-            return [permissions.IsAuthenticated()]
+            return [permissions.AllowAny()]
         return [permissions.IsAuthenticated()]
     
     def perform_create(self, serializer):
@@ -68,7 +68,7 @@ class RaceResultViewSet(viewsets.ReadOnlyModelViewSet):
     """
     queryset = RaceResult.objects.select_related('race', 'rider__club').all()
     serializer_class = RaceResultSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
     
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -111,7 +111,7 @@ class ChampionshipResultViewSet(viewsets.ReadOnlyModelViewSet):
     """
     queryset = ChampionshipResult.objects.select_related('championship', 'rider__club').all()
     serializer_class = ChampionshipResultSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
     
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -154,7 +154,7 @@ class ClubResultViewSet(viewsets.ReadOnlyModelViewSet):
     """
     queryset = ClubResult.objects.select_related('championship', 'club').all()
     serializer_class = ClubResultSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
     
     def get_queryset(self):
         queryset = super().get_queryset()

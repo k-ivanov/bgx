@@ -1,0 +1,138 @@
+{
+  "app": {
+    "title": "BGX Racing Platform",
+    "subtitle": "Bulgarian Enduro Championship",
+    "footer": "© 2024 BGX Racing Platform. All rights reserved."
+  },
+  "header": {
+    "register": "Register",
+    "activate": "Activate",
+    "login": "Login",
+    "logout": "Logout"
+  },
+  "championship": {
+    "select": "Championship",
+    "selectPlaceholder": "Select a championship...",
+    "noChampionships": "No championships available",
+    "status": {
+      "upcoming": "Upcoming",
+      "active": "Active",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    }
+  },
+  "race": {
+    "title": "Races",
+    "count_one": "{{count}} race",
+    "count_other": "{{count}} races",
+    "noRaces": "No races scheduled for this championship yet",
+    "notFound": "Race not found",
+    "viewDetails": "View Details",
+    "backToChampionships": "Back to Championships",
+    "selectCategory": "Select Category",
+    "results": "Results",
+    "noResults": "No results available for this category yet",
+    "table": {
+      "name": "Race Name",
+      "location": "Location",
+      "dates": "Dates",
+      "status": "Status",
+      "registration": "Registration",
+      "action": "Action",
+      "deadline": "Deadline",
+      "position": "Position",
+      "rider": "Rider",
+      "club": "Club",
+      "points": "Points",
+      "time": "Time"
+    },
+    "status": {
+      "upcoming": "Upcoming",
+      "ongoing": "Ongoing",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    },
+    "registration": {
+      "open": "Open",
+      "closed": "Closed"
+    }
+  },
+  "category": {
+    "expert": "Expert",
+    "profi": "Profi",
+    "junior": "Junior",
+    "standard": "Standard",
+    "standard_junior": "Standard Junior",
+    "seniors_40": "Seniors 40+",
+    "seniors_50": "Seniors 50+",
+    "women": "Women"
+  },
+  "auth": {
+    "register": {
+      "title": "Create Account",
+      "subtitle": "Join the BGX Racing Platform",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "username": "Username",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "passwordRequirement": "Must be at least 8 characters",
+      "submit": "Create Account",
+      "submitting": "Creating Account...",
+      "alreadyHaveAccount": "Already have an account?",
+      "signIn": "Sign In",
+      "backToHome": "Back to Home",
+      "success": {
+        "title": "Registration Successful!",
+        "message": "Your account has been created. Please save your activation code.",
+        "codeLabel": "Your Activation Code:",
+        "copy": "Copy",
+        "warning": "Important: Save this code securely. You'll need it to activate your account.",
+        "continue": "Continue to Activation",
+        "skipForNow": "Skip for Now"
+      },
+      "errors": {
+        "passwordMismatch": "Passwords don't match",
+        "passwordTooShort": "Password must be at least 8 characters",
+        "generalError": "Registration failed. Please try again."
+      }
+    },
+    "activate": {
+      "title": "Activate Your Account",
+      "subtitle": "Enter the activation code you received during registration",
+      "codeLabel": "Activation Code",
+      "codePlaceholder": "Enter your activation code",
+      "codeHint": "This is the code you received after registration",
+      "submit": "Activate Account",
+      "submitting": "Activating...",
+      "noCode": "Don't have an activation code?",
+      "registerNew": "Register for a new account",
+      "backToHome": "Back to Home",
+      "success": {
+        "title": "Account Activated!",
+        "welcome": "Welcome, {{name}}!",
+        "message": "Your account has been successfully activated. You are now logged in!",
+        "redirecting": "Redirecting to home page...",
+        "goHome": "Go to Home Now"
+      },
+      "errors": {
+        "invalidCode": "Invalid activation code",
+        "alreadyActivated": "Account is already activated",
+        "generalError": "Activation failed. Please check your code and try again."
+      }
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "retry": "Retry",
+    "save": "Save",
+    "cancel": "Cancel",
+    "close": "Close",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort"
+  }
+}
+

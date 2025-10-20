@@ -8,8 +8,8 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'username', 'email', 'first_name', 'last_name', 
-                  'is_rider', 'is_club_admin', 'is_system_admin', 'date_joined']
-        read_only_fields = ['id', 'date_joined', 'is_system_admin']
+                  'is_rider', 'is_club_admin', 'is_system_admin', 'is_activated', 'date_joined']
+        read_only_fields = ['id', 'date_joined', 'is_system_admin', 'is_activated']
 
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
@@ -29,6 +29,9 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         validated_data.pop('password2')
         user = User.objects.create_user(**validated_data)
+        # Generate activation code automatically
+        user.generate_activation_code()
+        user.save()
         return user
 
 
@@ -37,7 +40,12 @@ class UserDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'username', 'email', 'first_name', 'last_name', 
-                  'is_rider', 'is_club_admin', 'is_system_admin', 
+                  'is_rider', 'is_club_admin', 'is_system_admin', 'is_activated',
                   'date_joined', 'last_login']
-        read_only_fields = ['id', 'date_joined', 'last_login', 'is_system_admin']
+        read_only_fields = ['id', 'date_joined', 'last_login', 'is_system_admin', 'is_activated']
+
+
+class UserActivationSerializer(serializers.Serializer):
+    """Serializer for account activation"""
+    activation_code = serializers.CharField(required=True, max_length=64)
 

@@ -1,0 +1,202 @@
+# Bulgarian translations for BGX Racing Platform
+# Copyright (C) 2024
+# This file is distributed under the same license as the bgx-api package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: bgx-api 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-01 00:00+0000\n"
+"PO-Revision-Date: 2024-01-01 00:00+0000\n"
+"Last-Translator: BGX Team\n"
+"Language-Team: Bulgarian\n"
+"Language: bg\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# Authentication messages
+msgid "Registration successful! Please use the activation code to activate your account."
+msgstr "Успешна регистрация! Моля използвай кода за активация за да активираш акаунта си."
+
+msgid "Account activated successfully!"
+msgstr "Акаунтът е успешно активиран!"
+
+msgid "Invalid activation code"
+msgstr "Невалиден код за активация"
+
+msgid "Account is already activated"
+msgstr "Акаунтът вече е активиран"
+
+msgid "Only race organizers or administrators can submit results."
+msgstr "Само организатори на състезания или администратори могат да добавят резултати."
+
+msgid "Only race organizers or administrators can update results."
+msgstr "Само организатори на състезания или администратори могат да актуализират резултати."
+
+msgid "Only race organizers or administrators can delete results."
+msgstr "Само организатори на състезания или администратори могат да изтриват резултати."
+
+msgid "Only system administrators can create championships."
+msgstr "Само системни администратори могат да създават шампионати."
+
+msgid "Only system administrators can update championships."
+msgstr "Само системни администратори могат да актуализират шампионати."
+
+msgid "Only system administrators can delete championships."
+msgstr "Само системни администратори могат да изтриват шампионати."
+
+msgid "Only system administrators or club administrators can create races."
+msgstr "Само системни администратори или клубни администратори могат да създават състезания."
+
+msgid "You don't have permission to update this race."
+msgstr "Нямаш права да актуализираш това състезание."
+
+msgid "Only system administrators can delete races."
+msgstr "Само системни администратори могат да изтриват състезания."
+
+msgid "You must have a rider profile to sign up for races."
+msgstr "Трябва да имаш профил на състезател за да се регистрираш за състезания."
+
+msgid "Registration is not open for this race."
+msgstr "Регистрацията не е отворена за това състезание."
+
+msgid "Registration deadline has passed."
+msgstr "Крайният срок за регистрация е изтекъл."
+
+msgid "You are already registered for this race."
+msgstr "Вече си регистриран за това състезание."
+
+msgid "This race has reached maximum participants."
+msgstr "Това състезание е достигнало максималния брой участници."
+
+msgid "You don't have permission to update this race day."
+msgstr "Нямаш права да актуализираш този състезателен ден."
+
+msgid "You don't have permission to delete this race day."
+msgstr "Нямаш права да изтриеш този състезателен ден."
+
+msgid "You don't have permission to update this participation."
+msgstr "Нямаш права да актуализираш това участие."
+
+msgid "You don't have permission to delete this participation."
+msgstr "Нямаш права да изтриеш това участие."
+
+# Model field verbose names
+msgid "name"
+msgstr "име"
+
+msgid "description"
+msgstr "описание"
+
+msgid "year"
+msgstr "година"
+
+msgid "start date"
+msgstr "начална дата"
+
+msgid "end date"
+msgstr "крайна дата"
+
+msgid "status"
+msgstr "статус"
+
+msgid "location"
+msgstr "локация"
+
+msgid "registration open"
+msgstr "регистрацията отворена"
+
+msgid "registration deadline"
+msgstr "краен срок за регистрация"
+
+msgid "max participants"
+msgstr "максимален брой участници"
+
+msgid "category"
+msgstr "категория"
+
+msgid "position"
+msgstr "позиция"
+
+msgid "points"
+msgstr "точки"
+
+msgid "time"
+msgstr "време"
+
+msgid "rider"
+msgstr "състезател"
+
+msgid "race"
+msgstr "състезание"
+
+msgid "championship"
+msgstr "шампионат"
+
+msgid "club"
+msgstr "клуб"
+
+msgid "first name"
+msgstr "име"
+
+msgid "last name"
+msgstr "фамилия"
+
+msgid "email"
+msgstr "имейл"
+
+msgid "username"
+msgstr "потребителско име"
+
+msgid "password"
+msgstr "парола"
+
+msgid "created at"
+msgstr "създаден на"
+
+msgid "updated at"
+msgstr "актуализиран на"
+
+# Status choices
+msgid "upcoming"
+msgstr "предстоящ"
+
+msgid "active"
+msgstr "активен"
+
+msgid "ongoing"
+msgstr "в ход"
+
+msgid "completed"
+msgstr "завършен"
+
+msgid "cancelled"
+msgstr "отменен"
+
+# Category choices
+msgid "expert"
+msgstr "експерт"
+
+msgid "profi"
+msgstr "профи"
+
+msgid "junior"
+msgstr "юноши"
+
+msgid "standard"
+msgstr "стандарт"
+
+msgid "standard_junior"
+msgstr "стандарт юноши"
+
+msgid "seniors_40"
+msgstr "ветерани 40+"
+
+msgid "seniors_50"
+msgstr "ветерани 50+"
+
+msgid "women"
+msgstr "жени"
+

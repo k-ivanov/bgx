@@ -26,6 +26,11 @@ help:
 	@echo "  make clean          - Stop and remove all containers and volumes"
 	@echo "  make psql           - Open PostgreSQL shell"
 	@echo ""
+	@echo "Frontend:"
+	@echo "  make fe-install     - Install frontend dependencies"
+	@echo "  make fe-dev         - Start frontend development server"
+	@echo "  make fe-build       - Build frontend for production"
+	@echo ""
 
 # Start all services
 start:
@@ -160,4 +165,40 @@ restart-api:
 # Restart DB only
 restart-db:
 	docker compose restart bgx-db
+
+# ============================================
+# Internationalization (i18n)
+# ============================================
+
+# Extract translatable strings from Python code
+makemessages:
+	docker compose exec bgx-api python manage.py makemessages -l bg -i venv -i staticfiles
+	@echo "✓ Translation strings extracted to bgx-api/locale/bg/LC_MESSAGES/django.po"
+
+# Compile translation files (.po to .mo)
+compilemessages:
+	docker compose exec bgx-api python manage.py compilemessages
+	@echo "✓ Translations compiled successfully!"
+
+# Update translations (extract + compile)
+update-translations: makemessages compilemessages
+	@echo "✓ Translations updated! Restart server: make restart-api"
+
+# Show translation statistics
+translation-stats:
+	@echo "Translation statistics:"
+	@msgfmt --statistics bgx-api/locale/bg/LC_MESSAGES/django.po 2>&1 || echo "No translations found"
+
+# Frontend commands
+fe-install:
+	@echo "Installing frontend dependencies..."
+	cd bgx-fe && npm install
+
+fe-dev:
+	@echo "Starting frontend development server..."
+	cd bgx-fe && npm run dev
+
+fe-build:
+	@echo "Building frontend for production..."
+	cd bgx-fe && npm run build
 

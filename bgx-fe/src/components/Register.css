@@ -1,0 +1,15 @@
+/* Additional styles for Register component */
+input:focus {
+  outline: none;
+}
+
+.copy-button:hover {
+  transform: scale(1.05);
+}
+
+@media (max-width: 640px) {
+  .grid-cols-2 {
+    grid-template-columns: 1fr;
+  }
+}
+

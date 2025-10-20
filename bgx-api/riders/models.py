@@ -22,7 +22,6 @@ class Rider(models.Model):
     last_name = models.CharField(max_length=100)
     date_of_birth = models.DateField(null=True, blank=True)
     photo = models.ImageField(upload_to='riders/photos/', blank=True, null=True)
-    email = models.EmailField(blank=True)
     phone = models.CharField(max_length=20, blank=True)
     
     # License information
@@ -63,4 +62,9 @@ class Rider(models.Model):
     @property
     def full_name(self):
         return f"{self.first_name} {self.last_name}"
+    
+    @property
+    def email(self):
+        """Get email from associated user account"""
+        return self.user.email if self.user else ''
 

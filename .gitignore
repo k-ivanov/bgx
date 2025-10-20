@@ -21,6 +21,10 @@ wheels/
 *.egg
 MANIFEST
 
+# Translations
+*.mo
+*.pot
+
 # Virtual Environments
 venv/
 env/
@@ -86,8 +90,11 @@ logs/
 *.swp
 *~
 
-# Node modules (if frontend is added later)
+# Node modules
 node_modules/
+bgx-fe/node_modules/
+bgx-fe/dist/
+bgx-fe/.env
 
 # BGX Project Specific
 # Rider credentials (contains passwords)

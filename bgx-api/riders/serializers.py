@@ -18,6 +18,7 @@ class RiderSerializer(serializers.ModelSerializer):
     """Standard rider serializer"""
     club_name = serializers.CharField(source='club.name', read_only=True)
     username = serializers.CharField(source='user.username', read_only=True)
+    email = serializers.EmailField(source='user.email', read_only=True)
     full_name = serializers.CharField(read_only=True)
     
     class Meta:
@@ -26,25 +27,25 @@ class RiderSerializer(serializers.ModelSerializer):
                   'date_of_birth', 'photo', 'email', 'phone', 'club', 'club_name',
                   'is_licensed', 'license_number', 'license_expiry',
                   'created_at', 'updated_at']
-        read_only_fields = ['id', 'user', 'created_at', 'updated_at']
+        read_only_fields = ['id', 'user', 'email', 'created_at', 'updated_at']
 
 
 class RiderDetailSerializer(serializers.ModelSerializer):
     """Detailed rider serializer with all information"""
     club = ClubListSerializer(read_only=True)
     username = serializers.CharField(source='user.username', read_only=True)
-    user_email = serializers.EmailField(source='user.email', read_only=True)
+    email = serializers.EmailField(source='user.email', read_only=True)
     full_name = serializers.CharField(read_only=True)
     races_participated = serializers.SerializerMethodField()
     
     class Meta:
         model = Rider
-        fields = ['id', 'user', 'username', 'user_email', 'full_name',
+        fields = ['id', 'user', 'username', 'email', 'full_name',
                   'first_name', 'last_name', 'date_of_birth', 'photo', 
-                  'email', 'phone', 'club', 'is_licensed', 'license_number', 
+                  'phone', 'club', 'is_licensed', 'license_number', 
                   'license_expiry', 'bike_info', 'gear_info', 'emergency_contact',
                   'races_participated', 'created_at', 'updated_at']
-        read_only_fields = ['id', 'user', 'created_at', 'updated_at']
+        read_only_fields = ['id', 'user', 'email', 'created_at', 'updated_at']
     
     def get_races_participated(self, obj):
         return obj.race_participations.filter(status='confirmed').count()
@@ -56,7 +57,7 @@ class RiderWriteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Rider
         fields = ['first_name', 'last_name', 'date_of_birth', 'photo', 
-                  'email', 'phone', 'club', 'is_licensed', 'license_number', 
+                  'phone', 'club', 'is_licensed', 'license_number', 
                   'license_expiry', 'bike_info', 'gear_info', 'emergency_contact']
     
     def create(self, validated_data):

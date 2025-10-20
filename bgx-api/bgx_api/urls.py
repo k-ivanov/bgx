@@ -21,7 +21,7 @@ from django.conf.urls.static import static
 from rest_framework import routers
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
-from .views import health_check
+from .views import health_check, set_language, get_language
 
 # Import viewsets
 from accounts.views import UserViewSet
@@ -54,6 +54,10 @@ urlpatterns = [
     
     # Health check
     path('health/', health_check, name='health_check'),
+    
+    # Language switching
+    path('api/set-language/', set_language, name='set_language'),
+    path('api/get-language/', get_language, name='get_language'),
     
     # Authentication endpoints
     path('api/auth/login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),

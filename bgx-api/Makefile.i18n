@@ -1,0 +1,43 @@
+# i18n Management Commands for BGX API
+# Usage: make -f Makefile.i18n <command>
+
+.PHONY: makemessages compilemessages update-translations
+
+# Generate translation files (extract translatable strings)
+makemessages:
+	@echo "Generating translation files..."
+	docker-compose exec bgx-api python manage.py makemessages -l bg -i venv -i staticfiles
+	@echo "Translation files generated in locale/bg/LC_MESSAGES/"
+
+# Compile translation files (.po to .mo)
+compilemessages:
+	@echo "Compiling translation files..."
+	docker-compose exec bgx-api python manage.py compilemessages
+	@echo "Translation files compiled successfully!"
+
+# Update translations (make + compile)
+update-translations: makemessages compilemessages
+	@echo "Translations updated and compiled!"
+	@echo "Restart the server to see changes: make restart-api"
+
+# Create locale directories
+create-locale-dirs:
+	@echo "Creating locale directories..."
+	mkdir -p bgx-api/locale/en/LC_MESSAGES
+	mkdir -p bgx-api/locale/bg/LC_MESSAGES
+	@echo "Locale directories created!"
+
+# Show translation statistics
+stats:
+	@echo "Translation statistics:"
+	@echo "\nBulgarian (bg):"
+	@msgfmt --statistics bgx-api/locale/bg/LC_MESSAGES/django.po 2>&1 || echo "No translations found"
+
+help:
+	@echo "i18n Management Commands:"
+	@echo "  make -f Makefile.i18n makemessages     - Extract translatable strings"
+	@echo "  make -f Makefile.i18n compilemessages  - Compile .po files to .mo"
+	@echo "  make -f Makefile.i18n update-translations - Make + compile"
+	@echo "  make -f Makefile.i18n stats            - Show translation statistics"
+	@echo "  make -f Makefile.i18n help             - Show this help message"
+

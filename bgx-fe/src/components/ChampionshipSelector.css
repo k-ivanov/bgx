@@ -1,0 +1,47 @@
+.championship-selector {
+  background: white;
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+  margin-bottom: 2rem;
+}
+
+.championship-selector select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+  background-position: right 0.5rem center;
+  background-repeat: no-repeat;
+  background-size: 1.5em 1.5em;
+  padding-right: 2.5rem;
+}
+
+.championship-selector select:focus {
+  outline: none;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 2rem;
+  color: #94a3b8;
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .championship-selector {
+    padding: 1rem;
+  }
+  
+  .championship-selector .flex {
+    flex-direction: column;
+    align-items: flex-start !important;
+  }
+  
+  .championship-selector .flex-1 {
+    width: 100%;
+  }
+  
+  .championship-selector select {
+    width: 100%;
+  }
+}
