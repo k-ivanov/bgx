@@ -18,6 +18,7 @@
     "noChampionships": "Няма налични шампионати",
     "notFound": "Шампионатът не е намерен",
     "viewOverallResults": "Общо Класиране",
+    "overallResults": "Общо Класиране",
     "viewStandings": "Виж Класиране",
     "overallStandings": "Общо Класиране",
     "standings": "Класиране",
@@ -243,7 +244,8 @@
     "close": "Затвори",
     "search": "Търсене",
     "filter": "Филтър",
-    "sort": "Сортиране"
+    "sort": "Сортиране",
+    "go": "Виж"
   }
 }
 

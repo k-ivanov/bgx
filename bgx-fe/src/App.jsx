@@ -130,7 +130,10 @@ function HomePage() {
         />
 
         {selectedChampionship && (
-          <RaceList championshipId={selectedChampionship.id} />
+          <RaceList 
+            championshipId={selectedChampionship.id} 
+            championships={championships}
+          />
         )}
       </main>
 

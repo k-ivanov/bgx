@@ -4,16 +4,18 @@ import { useTranslation } from 'react-i18next'
 import { getRaces } from '../api/api'
 import './RaceList.css'
 
-function RaceList({ championshipId }) {
+function RaceList({ championshipId, championships = [] }) {
   const navigate = useNavigate()
   const { t } = useTranslation()
   const [races, setRaces] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [selectedChampionshipForResults, setSelectedChampionshipForResults] = useState(championshipId)
 
   useEffect(() => {
     if (championshipId) {
       loadRaces()
+      setSelectedChampionshipForResults(championshipId)
     }
   }, [championshipId])
 
@@ -103,12 +105,32 @@ function RaceList({ championshipId }) {
           <h2>🏁 {t('race.title')}</h2>
           <span className="race-count">{t('race.count', { count: races.length })}</span>
         </div>
-        <button
-          onClick={() => navigate(`/championship/${championshipId}/results`)}
-          className="px-4 py-2 bg-accent text-white rounded-lg font-semibold hover:bg-accent-dark transition shadow-sm flex items-center gap-2"
-        >
-          🏆 {t('championship.viewOverallResults')}
-        </button>
+        
+        {/* Overall Results Dropdown and Go Button */}
+        <div className="flex items-center gap-2">
+          <label htmlFor="championship-results-select" className="text-sm font-medium text-secondary-700 whitespace-nowrap">
+            {t('championship.overallResults')}:
+          </label>
+          <select
+            id="championship-results-select"
+            value={selectedChampionshipForResults || ''}
+            onChange={(e) => setSelectedChampionshipForResults(Number(e.target.value))}
+            className="px-3 py-2 border border-secondary-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+          >
+            {championships.map(championship => (
+              <option key={championship.id} value={championship.id}>
+                {championship.name}
+              </option>
+            ))}
+          </select>
+          <button
+            onClick={() => navigate(`/championship/${selectedChampionshipForResults}/results`)}
+            disabled={!selectedChampionshipForResults}
+            className="px-4 py-2 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark transition shadow-sm disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
+          >
+            {t('common.go')} 🏆
+          </button>
+        </div>
       </div>
 
       {races.length === 0 ? (
