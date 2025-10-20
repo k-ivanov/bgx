@@ -89,7 +89,7 @@ function HomePage() {
   return (
     <div className="app">
       <header className="app-header">
-        <div className="flex justify-between items-center max-w-7xl mx-auto px-4">
+        <div className="flex justify-between items-center max-w-7xl mx-auto">
           <div>
             <h1>🏍️ {t('app.title')}</h1>
           </div>
@@ -99,12 +99,12 @@ function HomePage() {
             {isLoggedIn ? (
               // Logged in state
               <>
-                <div className="text-white/90 text-sm font-medium px-3">
+                <span className="text-secondary-600 text-sm font-medium hidden sm:inline">
                   {t('header.welcome', { name: currentUser?.username || 'User' })}
-                </div>
+                </span>
                 <button
                   onClick={handleLogout}
-                  className="px-5 py-2.5 bg-white/10 text-white rounded-lg font-semibold hover:bg-white/20 transition-all backdrop-blur-sm border border-white/30"
+                  className="px-4 py-2 text-secondary-700 hover:text-secondary-900 font-medium text-sm transition-colors"
                 >
                   {t('header.logout')}
                 </button>
@@ -113,7 +113,7 @@ function HomePage() {
               // Not logged in state
               <button
                 onClick={() => window.location.href = '/login'}
-                className="px-5 py-2.5 bg-white text-primary-700 rounded-lg font-semibold hover:bg-opacity-90 transition-all shadow-sm hover:shadow-md border border-white/20 backdrop-blur-sm"
+                className="px-4 py-2 bg-primary text-white rounded-lg font-medium text-sm hover:bg-primary-dark transition-colors shadow-sm"
               >
                 {t('header.login')}
               </button>

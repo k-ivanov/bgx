@@ -2,8 +2,8 @@
   background: white;
   border-radius: 12px;
   padding: 1.5rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e4e4e7;
 }
 
 .race-list-header {
@@ -12,21 +12,21 @@
   align-items: center;
   margin-bottom: 1.5rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e4e4e7;
   flex-wrap: wrap;
   gap: 1rem;
 }
 
 .race-list-header h2 {
-  color: #0f172a;
+  color: #18181b;
   font-size: 1.5rem;
   font-weight: 600;
   margin: 0;
 }
 
 .race-count {
-  background: #f1f5f9;
-  color: #475569;
+  background: #f4f4f5;
+  color: #52525b;
   padding: 0.375rem 0.75rem;
   border-radius: 6px;
   font-size: 0.875rem;
@@ -40,14 +40,14 @@
   align-items: center;
   justify-content: center;
   padding: 4rem;
-  color: #64748b;
+  color: #71717a;
 }
 
 .spinner-small {
   width: 40px;
   height: 40px;
-  border: 3px solid #e2e8f0;
-  border-top: 3px solid #0ea5e9;
+  border: 3px solid #e4e4e7;
+  border-top: 3px solid #0284c7;
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin-bottom: 1rem;
@@ -67,7 +67,7 @@
 
 .race-list-error button {
   margin-top: 1rem;
-  background: #0ea5e9;
+  background: #0284c7;
   color: white;
   border: none;
   padding: 0.5rem 1.5rem;
@@ -78,14 +78,14 @@
 }
 
 .race-list-error button:hover {
-  background: #0284c7;
+  background: #0369a1;
 }
 
 /* Empty State */
 .empty-races {
   text-align: center;
   padding: 4rem;
-  color: #94a3b8;
+  color: #71717a;
   font-size: 1.1rem;
 }
 
@@ -93,7 +93,7 @@
 .race-table-container {
   overflow-x: auto;
   border-radius: 8px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid #e4e4e7;
 }
 
 .race-table {
@@ -103,22 +103,22 @@
 }
 
 .race-table thead {
-  background: #f8fafc;
-  border-bottom: 2px solid #e2e8f0;
+  background: #fafafa;
+  border-bottom: 2px solid #e4e4e7;
 }
 
 .race-table thead th {
   padding: 0.75rem 1rem;
   font-weight: 600;
   font-size: 0.75rem;
-  color: #475569;
+  color: #52525b;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   white-space: nowrap;
 }
 
 .race-table tbody tr {
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e4e4e7;
   transition: background-color 0.15s ease;
   cursor: pointer;
 }
@@ -128,7 +128,7 @@
 }
 
 .race-table tbody tr:hover {
-  background: #f8fafc;
+  background: #fafafa;
 }
 
 .race-table tbody td {

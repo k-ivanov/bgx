@@ -1,8 +1,8 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { login, getCurrentUser } from '../api/api'
-import { saveTokens, saveUser } from '../utils/auth'
+import { saveTokens, saveUser, isAuthenticated } from '../utils/auth'
 import Register from './Register'
 import Activate from './Activate'
 import './Login.css'
@@ -12,6 +12,13 @@ function Login() {
   const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState('login') // 'login', 'register', 'activate'
   const [activationCode, setActivationCode] = useState('')
+
+  // Redirect to dashboard if already logged in
+  useEffect(() => {
+    if (isAuthenticated()) {
+      navigate('/dashboard', { replace: true })
+    }
+  }, [navigate])
 
   // Login form state
   const [loginData, setLoginData] = useState({
