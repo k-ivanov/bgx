@@ -8,7 +8,8 @@
     "register": "Register",
     "activate": "Activate",
     "login": "Login",
-    "logout": "Logout"
+    "logout": "Logout",
+    "welcome": "Welcome, {{name}}"
   },
   "championship": {
     "title": "Championship",
@@ -94,7 +95,19 @@
     "noChampionshipResults": "No championship standings yet"
   },
   "auth": {
+    "login": {
+      "tab": "Login",
+      "title": "Welcome Back",
+      "subtitle": "Sign in to your account",
+      "username": "Username",
+      "password": "Password",
+      "signIn": "Sign In",
+      "signingIn": "Signing In...",
+      "noAccount": "Don't have an account?",
+      "registerHere": "Register here"
+    },
     "register": {
+      "tab": "Register",
       "title": "Create Account",
       "subtitle": "Join the BGX Racing Platform",
       "firstName": "First Name",
@@ -109,6 +122,16 @@
       "alreadyHaveAccount": "Already have an account?",
       "signIn": "Sign In",
       "backToHome": "Back to Home",
+      "choose": {
+        "title": "Welcome to BGX Racing",
+        "subtitle": "How would you like to get started?",
+        "claimTitle": "I'm a Registered Rider",
+        "claimDescription": "Claim your existing rider profile and get access to your race history",
+        "claimButton": "Find My Profile",
+        "newTitle": "I'm New Here",
+        "newDescription": "Create a brand new account to join the BGX Racing community",
+        "newButton": "Create New Account"
+      },
       "success": {
         "title": "Registration Successful!",
         "message": "Your account has been created. Please save your activation code.",
@@ -122,9 +145,49 @@
         "passwordMismatch": "Passwords don't match",
         "passwordTooShort": "Password must be at least 8 characters",
         "generalError": "Registration failed. Please try again."
+      },
+      "match": {
+        "title": "Find Your Rider Profile",
+        "subtitle": "Enter your information to claim your account",
+        "firstNameLabel": "First Name",
+        "lastNameLabel": "Last Name",
+        "licenseLabel": "License Number (Optional)",
+        "licensePlaceholder": "Enter if you have a license",
+        "licenseHint": "Helps narrow down the search if there are multiple riders with your name",
+        "dobLabel": "Date of Birth (Optional)",
+        "searchButton": "Find My Profile",
+        "searching": "Searching...",
+        "noMatches": "No matching riders found. Please check your information or contact an administrator.",
+        "helpText": "If you're a registered rider, your profile already exists in our system. This process helps you claim and activate your account.",
+        "backToHome": "Back to Home",
+        "contactAdmin": "Please contact an administrator if you cannot find your profile."
+      },
+      "select": {
+        "title": "Select Your Profile",
+        "subtitle": "We found {{count}} matching rider(s)",
+        "license": "License",
+        "club": "Club",
+        "licensed": "Licensed",
+        "searchAgain": "Search Again",
+        "cancel": "Cancel"
+      },
+      "claim": {
+        "title": "Claim Your Account",
+        "subtitle": "Set up your login credentials",
+        "claimingFor": "Claiming account for:",
+        "usernameLabel": "Username",
+        "emailLabel": "Email",
+        "passwordLabel": "Password",
+        "confirmPasswordLabel": "Confirm Password",
+        "passwordHint": "Must be at least 8 characters",
+        "backButton": "Back",
+        "claimButton": "Claim Account",
+        "claiming": "Claiming...",
+        "cancelButton": "Cancel"
       }
     },
     "activate": {
+      "tab": "Activate",
       "title": "Activate Your Account",
       "subtitle": "Enter the activation code you received during registration",
       "codeLabel": "Activation Code",
@@ -148,6 +211,27 @@
         "generalError": "Activation failed. Please check your code and try again."
       }
     }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome, {{name}}!",
+    "home": "Home",
+    "username": "Username",
+    "email": "Email",
+    "rider": "Rider",
+    "clubAdmin": "Club Admin",
+    "admin": "Admin",
+    "viewRaces": "View Races",
+    "viewRacesDesc": "Browse all races and championships",
+    "myResults": "My Results",
+    "myResultsDesc": "View your race results and standings",
+    "championships": "Championships",
+    "championshipsDesc": "View championship standings",
+    "accountInfo": "Account Information",
+    "accountStatus": "Account Status",
+    "activated": "Activated",
+    "pending": "Pending Activation",
+    "memberSince": "Member Since"
   },
   "common": {
     "back": "Back",

@@ -49,3 +49,25 @@ class UserActivationSerializer(serializers.Serializer):
     """Serializer for account activation"""
     activation_code = serializers.CharField(required=True, max_length=64)
 
+
+class RiderMatchSerializer(serializers.Serializer):
+    """Serializer for matching with existing rider"""
+    first_name = serializers.CharField(required=True, max_length=100)
+    last_name = serializers.CharField(required=True, max_length=100)
+    license_number = serializers.CharField(required=False, allow_blank=True, max_length=50)
+    date_of_birth = serializers.DateField(required=False, allow_null=True)
+
+
+class ClaimAccountSerializer(serializers.Serializer):
+    """Serializer for claiming an existing user account"""
+    rider_id = serializers.IntegerField(required=True)
+    username = serializers.CharField(required=True, max_length=150)
+    password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
+    password2 = serializers.CharField(write_only=True, required=True)
+    email = serializers.EmailField(required=True)
+    
+    def validate(self, attrs):
+        if attrs['password'] != attrs['password2']:
+            raise serializers.ValidationError({"password": "Password fields didn't match."})
+        return attrs
+

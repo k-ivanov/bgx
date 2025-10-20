@@ -6,11 +6,12 @@ import RaceList from './components/RaceList'
 import RaceDetail from './components/RaceDetail'
 import ChampionshipResults from './components/ChampionshipResults'
 import RiderDetail from './components/RiderDetail'
-import Register from './components/Register'
-import Activate from './components/Activate'
+import Login from './components/Login'
+import Dashboard from './components/Dashboard'
 import LanguageSwitcher from './components/LanguageSwitcher'
 import { getChampionships } from './api/api'
 import { syncLanguageOnInit } from './utils/languageSync'
+import { isAuthenticated, getUser, logout } from './utils/auth'
 import './App.css'
 
 function HomePage() {
@@ -19,8 +20,14 @@ function HomePage() {
   const [selectedChampionship, setSelectedChampionship] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [currentUser, setCurrentUser] = useState(null)
 
   useEffect(() => {
+    // Check authentication status
+    setIsLoggedIn(isAuthenticated())
+    setCurrentUser(getUser())
+    
     // Sync language on app init
     syncLanguageOnInit().then(() => {
       loadChampionships()
@@ -46,6 +53,14 @@ function HomePage() {
 
   const handleChampionshipChange = (championship) => {
     setSelectedChampionship(championship)
+  }
+
+  const handleLogout = () => {
+    logout()
+    setIsLoggedIn(false)
+    setCurrentUser(null)
+    // Optionally reload page to reset state
+    window.location.reload()
   }
 
   if (loading) {
@@ -78,21 +93,32 @@ function HomePage() {
           <div>
             <h1>🏍️ {t('app.title')}</h1>
           </div>
-            <div className="flex gap-3 items-center">
-              <LanguageSwitcher />
+          <div className="flex gap-3 items-center">
+            <LanguageSwitcher />
+            
+            {isLoggedIn ? (
+              // Logged in state
+              <>
+                <div className="text-white/90 text-sm font-medium px-3">
+                  {t('header.welcome', { name: currentUser?.username || 'User' })}
+                </div>
+                <button
+                  onClick={handleLogout}
+                  className="px-5 py-2.5 bg-white/10 text-white rounded-lg font-semibold hover:bg-white/20 transition-all backdrop-blur-sm border border-white/30"
+                >
+                  {t('header.logout')}
+                </button>
+              </>
+            ) : (
+              // Not logged in state
               <button
-                onClick={() => window.location.href = '/register'}
+                onClick={() => window.location.href = '/login'}
                 className="px-5 py-2.5 bg-white text-primary-700 rounded-lg font-semibold hover:bg-opacity-90 transition-all shadow-sm hover:shadow-md border border-white/20 backdrop-blur-sm"
               >
-                {t('header.register')}
+                {t('header.login')}
               </button>
-              <button
-                onClick={() => window.location.href = '/activate'}
-                className="px-5 py-2.5 border-2 border-white/30 text-white rounded-lg font-semibold hover:bg-white/10 hover:border-white/50 transition-all backdrop-blur-sm"
-              >
-                {t('header.activate')}
-              </button>
-            </div>
+            )}
+          </div>
         </div>
       </header>
 
@@ -123,8 +149,8 @@ function App() {
         <Route path="/race/:raceId" element={<RaceDetail />} />
         <Route path="/championship/:championshipId/results" element={<ChampionshipResults />} />
         <Route path="/rider/:riderId" element={<RiderDetail />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/activate" element={<Activate />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>

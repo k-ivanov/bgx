@@ -2,6 +2,9 @@ import axios from 'axios';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
 
+// Export API_BASE_URL for direct use
+export { API_BASE_URL };
+
 const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
@@ -10,7 +13,7 @@ const api = axios.create({
   withCredentials: true, // Enable sending cookies with requests
 });
 
-// Add interceptor to include Accept-Language header
+// Add interceptor to include Accept-Language header and Authorization token
 api.interceptors.request.use((config) => {
   // Get language from cookie or localStorage
   const getLangFromCookie = () => {
@@ -26,6 +29,12 @@ api.interceptors.request.use((config) => {
   
   const language = getLangFromCookie() || localStorage.getItem('i18nextLng') || 'en';
   config.headers['Accept-Language'] = language;
+  
+  // Add Authorization header if token exists
+  const token = localStorage.getItem('access_token');
+  if (token) {
+    config.headers['Authorization'] = `Bearer ${token}`;
+  }
   
   return config;
 }, (error) => {
@@ -82,6 +91,16 @@ export const register = async (userData) => {
   return response.data;
 };
 
+export const matchRider = async (matchData) => {
+  const response = await api.post('/users/match_rider/', matchData);
+  return response.data;
+};
+
+export const claimAccount = async (claimData) => {
+  const response = await api.post('/users/claim_account/', claimData);
+  return response.data;
+};
+
 export const activateAccount = async (activationCode) => {
   const response = await api.post('/users/activate/', { activation_code: activationCode });
   return response.data;
@@ -89,6 +108,12 @@ export const activateAccount = async (activationCode) => {
 
 export const login = async (username, password) => {
   const response = await api.post('/auth/login/', { username, password });
+  return response.data;
+};
+
+// Get current user info
+export const getCurrentUser = async () => {
+  const response = await api.get('/users/me/');
   return response.data;
 };
 

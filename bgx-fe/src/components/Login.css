@@ -1,0 +1,23 @@
+.login-tab-content {
+  /* Remove extra padding since parent already has padding */
+  margin: -2rem;
+  padding: 0;
+}
+
+.login-tab-content > div {
+  /* Override any min-height from embedded components */
+  min-height: auto !important;
+}
+
+.login-tab-content .bg-gradient-to-b {
+  /* Remove gradient background for embedded view */
+  background: transparent !important;
+}
+
+.login-tab-content > div > div {
+  /* Remove shadow and max-width constraints for embedded view */
+  box-shadow: none !important;
+  max-width: none !important;
+  padding: 2rem !important;
+}
+

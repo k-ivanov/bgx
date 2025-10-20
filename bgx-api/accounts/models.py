@@ -23,6 +23,10 @@ class User(AbstractUser):
         default=False,
         help_text="Whether the user has activated their account via email"
     )
+    is_claimed = models.BooleanField(
+        default=False,
+        help_text="Whether this pre-existing user account has been claimed by the rider"
+    )
     
     # Email field with unique constraint
     email = models.EmailField(

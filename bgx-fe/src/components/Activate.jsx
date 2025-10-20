@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { activateAccount } from '../api/api'
+import { saveTokens, saveUser } from '../utils/auth'
 import './Activate.css'
 
-function Activate() {
+function Activate({ embedded = false, initialCode = '' }) {
   const navigate = useNavigate()
   const location = useLocation()
-  const [activationCode, setActivationCode] = useState(location.state?.activationCode || '')
+  const [activationCode, setActivationCode] = useState(initialCode || location.state?.activationCode || '')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [success, setSuccess] = useState(false)
@@ -22,15 +23,15 @@ function Activate() {
       setSuccess(true)
       setUserData(response.user)
       
-      // Store tokens
+      // Store tokens and user data
       if (response.access) {
-        localStorage.setItem('access_token', response.access)
-        localStorage.setItem('refresh_token', response.refresh)
+        saveTokens(response.access, response.refresh)
+        saveUser(response.user)
       }
       
-      // Redirect after 3 seconds
+      // Redirect to dashboard after 3 seconds
       setTimeout(() => {
-        navigate('/')
+        navigate('/dashboard')
       }, 3000)
     } catch (err) {
       console.error('Activation error:', err)
