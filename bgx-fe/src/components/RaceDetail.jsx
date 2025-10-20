@@ -217,9 +217,12 @@ function RaceDetail() {
                         </div>
                       </td>
                       <td className="px-6 py-4">
-                        <div className="text-sm font-semibold text-gray-900">
+                        <button
+                          onClick={() => navigate(`/rider/${result.rider}`)}
+                          className="text-sm font-semibold text-primary hover:text-primary-dark transition text-left"
+                        >
                           {result.rider_name || 'Unknown Rider'}
-                        </div>
+                        </button>
                       </td>
                       <td className="px-6 py-4">
                         <div className="text-sm text-gray-600">

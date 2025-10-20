@@ -5,6 +5,7 @@ import ChampionshipSelector from './components/ChampionshipSelector'
 import RaceList from './components/RaceList'
 import RaceDetail from './components/RaceDetail'
 import ChampionshipResults from './components/ChampionshipResults'
+import RiderDetail from './components/RiderDetail'
 import Register from './components/Register'
 import Activate from './components/Activate'
 import LanguageSwitcher from './components/LanguageSwitcher'
@@ -76,23 +77,22 @@ function HomePage() {
         <div className="flex justify-between items-center max-w-7xl mx-auto px-4">
           <div>
             <h1>🏍️ {t('app.title')}</h1>
-            <p>{t('app.subtitle')}</p>
           </div>
-          <div className="flex gap-3 items-center">
-            <LanguageSwitcher />
-            <button
-              onClick={() => window.location.href = '/register'}
-              className="px-4 py-2 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark transition shadow-sm"
-            >
-              {t('header.register')}
-            </button>
-            <button
-              onClick={() => window.location.href = '/activate'}
-              className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-50 transition"
-            >
-              {t('header.activate')}
-            </button>
-          </div>
+            <div className="flex gap-3 items-center">
+              <LanguageSwitcher />
+              <button
+                onClick={() => window.location.href = '/register'}
+                className="px-5 py-2.5 bg-white text-primary-700 rounded-lg font-semibold hover:bg-opacity-90 transition-all shadow-sm hover:shadow-md border border-white/20 backdrop-blur-sm"
+              >
+                {t('header.register')}
+              </button>
+              <button
+                onClick={() => window.location.href = '/activate'}
+                className="px-5 py-2.5 border-2 border-white/30 text-white rounded-lg font-semibold hover:bg-white/10 hover:border-white/50 transition-all backdrop-blur-sm"
+              >
+                {t('header.activate')}
+              </button>
+            </div>
         </div>
       </header>
 
@@ -122,6 +122,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/race/:raceId" element={<RaceDetail />} />
         <Route path="/championship/:championshipId/results" element={<ChampionshipResults />} />
+        <Route path="/rider/:riderId" element={<RiderDetail />} />
         <Route path="/register" element={<Register />} />
         <Route path="/activate" element={<Activate />} />
         <Route path="*" element={<Navigate to="/" replace />} />

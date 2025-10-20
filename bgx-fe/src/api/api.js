@@ -103,5 +103,23 @@ export const getLanguage = async () => {
   return response.data;
 };
 
+// Riders
+export const getRider = async (id) => {
+  const response = await api.get(`/riders/${id}/`);
+  return response.data;
+};
+
+export const getRiderResults = async (id) => {
+  const response = await api.get(`/riders/${id}/results/`);
+  return Array.isArray(response.data) ? response.data : response.data.results || [];
+};
+
+export const getRiderChampionshipResults = async (riderId) => {
+  const response = await api.get('/results/championship-results/', {
+    params: { rider: riderId }
+  });
+  return Array.isArray(response.data) ? response.data : response.data.results || [];
+};
+
 export default api;
 

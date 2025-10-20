@@ -1,8 +1,8 @@
 {
   "app": {
-    "title": "BGX Racing Platform",
+    "title": "BG-X Hard Enduro",
     "subtitle": "Български Ендуро Шампионат",
-    "footer": "© 2024 BGX Racing Platform. Всички права запазени."
+    "footer": ""
   },
   "header": {
     "register": "Регистрация",
@@ -11,11 +11,13 @@
     "logout": "Изход"
   },
   "championship": {
+    "title": "Шампионат",
     "select": "Шампионат",
     "selectPlaceholder": "Изберете шампионат...",
     "noChampionships": "Няма налични шампионати",
     "notFound": "Шампионатът не е намерен",
     "viewOverallResults": "Общо Класиране",
+    "viewStandings": "Виж Класиране",
     "overallStandings": "Общо Класиране",
     "standings": "Класиране",
     "overallDescription": "Сумарни точки от всички състезания в този шампионат",
@@ -68,14 +70,28 @@
     }
   },
   "category": {
+    "title": "Категория",
     "expert": "Експерт",
-    "profi": "Професионалисти",
-    "junior": "Юноши",
+    "profi": "Про",
+    "junior": "Джуниър",
     "standard": "Стандарт",
-    "standard_junior": "Стандарт Юноши",
-    "seniors_40": "Ветерани 40+",
-    "seniors_50": "Ветерани 50+",
+    "standard_junior": "Ст. Джуниър",
+    "seniors_40": "Сеньор 40+",
+    "seniors_50": "Сеньор 50+",
     "women": "Жени"
+  },
+  "rider": {
+    "title": "Състезател",
+    "notFound": "Състезателят не е намерен",
+    "profile": "Профил на Състезател",
+    "license": "Лиценз",
+    "licensed": "Лицензиран",
+    "totalRaces": "Общо Състезания",
+    "championships": "Шампионати",
+    "raceResults": "Резултати от Състезания",
+    "championshipStandings": "Класиране в Шампионати",
+    "noRaceResults": "Все още няма резултати от състезания",
+    "noChampionshipResults": "Все още няма класиране в шампионати"
   },
   "auth": {
     "register": {
@@ -134,6 +150,7 @@
     }
   },
   "common": {
+    "back": "Назад",
     "loading": "Зареждане...",
     "error": "Грешка",
     "retry": "Опитай отново",

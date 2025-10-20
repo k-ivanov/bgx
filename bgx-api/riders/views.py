@@ -28,8 +28,8 @@ class RiderViewSet(viewsets.ModelViewSet):
         return RiderSerializer
     
     def get_permissions(self):
-        if self.action in ['list', 'retrieve']:
-            return [permissions.IsAuthenticated()]
+        if self.action in ['list', 'retrieve', 'results', 'upcoming_races']:
+            return [permissions.AllowAny()]
         return [permissions.IsAuthenticated()]
     
     def perform_update(self, serializer):
